@@ -26,12 +26,36 @@ def get():
             H1("Gym App", cls="pt-2 pb-2 text-xl text-center text-rose-400 hover:text-rose-700"),
             Div(
                 # each navigation button, when clicked will pull contents of the page without full reload
-                Button("Home", cls="btn"),
-                Button("Workout Plan", cls="btn"),
-                Button("Exercises", cls="btn"),
-                Button("Start Workout", cls="btn"),
+                Button("Home",
+                    hx_get="home",
+                    hx_trigger="click",
+                    hx_target="#content",
+                    hx_swap="innerHTML",
+                    cls="btn"),
+                Button("Workout Plan",
+                    hx_get="workout",
+                    hx_trigger="click",
+                    hx_target="#content",
+                    hx_swap="innerHTML",
+                    cls="btn"),
+                Button("Exercises",
+                    hx_get="exercises",
+                    hx_trigger="click",
+                    hx_target="#content",
+                    hx_swap="innerHTML",
+                    cls="btn"),
+                Button("Start Workout",
+                    hx_get="start",
+                    hx_trigger="click",
+                    hx_target="#content",
+                    hx_swap="innerHTML",
+                    cls="btn"),
+                # nav-button css
                 cls="flex justify-center p-2"
             ),
+            Div(homepage,
+                id="content",
+                cls="flex justify-center"),
             # whole body CSS
             cls="body"
         ),
@@ -40,20 +64,23 @@ def get():
 
 @rt("/home")
 def get():
-    pass
+    return Div(homepage)
 
 @rt("/workout")
 def get():
-    pass
+    return Div("Your Workout Plan")
 
 @rt("/exercises")
 def get():
-    pass
+    return Div("Exercise Base")
 
 @rt("/start")
 def get():
-    pass
+    return Div("Start Your Workout Here!")
 
+homepage = """
+Welcome to the Gym App
+"""
 
 serve()
 
