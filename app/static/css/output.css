@@ -107,7 +107,7 @@
 }
 
 /*
-! tailwindcss v3.4.15 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -600,10 +600,6 @@ video {
   display: contents;
 }
 
-.flex-auto {
-  flex: 1 1 auto;
-}
-
 .justify-center {
   justify-content: center;
 }
@@ -674,7 +670,7 @@ video {
   margin-left: auto;
   margin-right: auto;
   max-width: 48rem;
-  background-color: rgba(50,50,50,1);
+  background-color: rgba(44,44,44,1);
   --tw-text-opacity: 1;
   color: rgb(243 244 246 / var(--tw-text-opacity, 1));
 }
