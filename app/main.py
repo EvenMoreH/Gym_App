@@ -1,4 +1,6 @@
-from fasthtml.common import * # type: ignore
+from fasthtml.common import *
+from sqlite3 import *
+from ksuid import ksuid
 
 # for Docker
 # app, rt = fast_app(static_path="static") # type: ignore
@@ -17,6 +19,48 @@ default_header = Head(
                     Link(rel="icon", href="images/favicon.ico", type="image/x-icon"),
                     Link(rel="icon", href="images/favicon.png", type="image/png"),
                 )
+
+db = database("data/app.db")
+
+users = db.t.users
+if users not in db.t:
+    users.create(
+        dict(
+            id=str,
+            username=str,
+            password=str
+        ),
+        pk="username"
+    )
+
+if not any(user["username"] == "admin" for user in users()):
+    users.insert(id=str(ksuid()), username="admin", password="admin1")
+
+workouts = db.t.workouts
+if workouts not in db.t:
+    workouts.create(
+        {
+            "id": str,
+            "user_id": int,
+            "date": str,
+        },
+        pk="id"
+    )
+
+sets = db.t.sets
+if sets not in db.t:
+    sets.create(
+        {
+            "id": str,
+            "workout_id": str,
+            "exercise": str,    # e.g. "bench press"
+            "set": int,         # ordering within workout
+            "weight": float,    # kg or lbs
+            "reps": int,
+        },
+        pk="id"
+    )
+
 
 @rt("/")
 def get():
